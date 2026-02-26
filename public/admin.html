@@ -5,14 +5,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bookings Dashboard</title>
-
     <link rel="stylesheet" href="admin.css" />
 </head>
 
 <body>
-
-    <h1>Raw Bookings Dashboard</h1>
-
+    <h1>Bookings</h1>
     <div class="dashboard">
         <div class="table-header">
             <div>Name</div>
@@ -23,13 +20,24 @@
             <div>Payment</div>
             <div>Created</div>
         </div>
-
         <div id="table-body">
             <div class="loading">Loading...</div>
         </div>
     </div>
-
     <div class="pagination" id="pagination"></div>
+
+    <h2 class="section-title">Users</h2>
+    <div class="dashboard users-table">
+        <div class="table-header">
+            <div>ID</div>
+            <div>Username</div>
+            <div>Role</div>
+            <div>Created</div>
+        </div>
+        <div id="users-body">
+            <div class="loading">Loading...</div>
+        </div>
+    </div>
 
     <script src="admin.js"></script>
 </body>

@@ -1,20 +1,16 @@
 import Knex from 'knex';
 
 const config = {
-    client: 'pg',
+    client: 'better-sqlite3',
     connection: {
-        host: process.env.DB_HOST,
-        port: Number(process.env.DB_PORT),
-        database: process.env.DB_NAME,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        ssl: process.env.DB_SSL === 'require' ? { rejectUnauthorized: false } : false,
+        filename: process.env.DB_PATH || './dev.sqlite3',
     },
+    useNullAsDefault: true,
 }
+
 const db = Knex(config);
 
 export async function checkConnection(): Promise<void> {
-    // simple lightweight query to verify connectivity
     await db.raw('select 1');
 }
 

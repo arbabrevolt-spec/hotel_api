@@ -5,6 +5,66 @@
     <meta charset="UTF-8">
     <title>RoyalHotel | Sign Up</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            min-width: 250px;
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: white;
+            font-family: sans-serif;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateX(100%);
+            animation: slideIn 0.3s forwards;
+            position: relative;
+        }
+
+        .toast.success {
+            background-color: #22c55e;
+        }
+
+        .toast.error {
+            background-color: #ef4444;
+        }
+
+        .toast.warning {
+            background-color: #f59e0b;
+        }
+
+        .toast.info {
+            background-color: #3b82f6;
+        }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 
 <body>
@@ -12,14 +72,14 @@
     <div class="wrapper">
 
         <div class="left">
-            <img src="hotel.jpg" alt="Royal Hotel">
+            <img src="assets/login-img.png" alt="Royal Hotel">
         </div>
 
         <div class="right">
             <div class="form-box">
 
                 <div class="logo">
-                    <img src="https://i.imgur.com/9QZ7ZQF.png" alt="">
+                    <img src="" alt="">
                     <span>RoyalHotel</span>
                 </div>
 
@@ -36,9 +96,8 @@
                     <input type="password" id="password" placeholder="Password" required>
                     <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
 
-                    <button class="btn" type="submit">Sign up</button>
+                    <button class="btn" id="submitBtn" type="submit">Sign up</button>
                 </form>
-
 
                 <p class="link">
                     Already have an account?
@@ -50,7 +109,9 @@
 
     </div>
 
+    <div id="toast-container"></div>
     <script src="script.js"></script>
+
 </body>
 
 </html>

@@ -20,4 +20,8 @@ export class UserRepo {
     const [user] = await this.db<User>('users').insert(data).returning('*');
     return user;
   }
+
+  async findAll(): Promise<User[]> {
+    return this.db<User>('users').select('*');
+  }
 }

@@ -24,6 +24,13 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/admin.html'));
 });
 
+app.get('/:page', (req, res, next) => {
+  const filePath = path.join(__dirname, `../public/${req.params.page}.html`);
+  res.sendFile(filePath, (err) => {
+    if (err) next(); // file not found, pass to 404 handler
+  });
+});
+
 
 
 app.use(express.json());

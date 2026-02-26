@@ -1,11 +1,9 @@
 import type { Knex } from 'knex';
 import { faker } from '@faker-js/faker';
 
-// number of listings to create; default 20 if not set
 const COUNT = Number(process.env.LISTINGS_SEED_COUNT) || 20;
 
 export async function seed(knex: Knex): Promise<void> {
-    // delete existing
     await knex('hotel_listings').del();
 
     const rows = [];
@@ -22,7 +20,7 @@ export async function seed(knex: Knex): Promise<void> {
             bedrooms: faker.number.int({ min: 1, max: 5 }),
             bathrooms: faker.number.int({ min: 1, max: 3 }),
             property_type: faker.helpers.arrayElement(['hotel', 'apartment', 'villa', 'resort', 'guesthouse', 'hostel']),
-            amenities: ['wifi', 'air conditioning', 'pool'],
+            amenities: JSON.stringify(['wifi', 'air conditioning', 'pool']),
             image_url: null,
             is_active: true,
             rating: null,

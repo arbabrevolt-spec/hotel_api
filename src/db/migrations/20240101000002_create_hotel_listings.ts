@@ -2,7 +2,7 @@ import type { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable('hotel_listings', (table) => {
-    table.uuid('id').primary().defaultTo(knex.raw('gen_random_uuid()'));
+    table.increments('id').primary();
     table.string('name').notNullable();
     table.text('description').notNullable();
     table.string('location').notNullable();
@@ -13,11 +13,9 @@ export async function up(knex: Knex): Promise<void> {
     table.integer('max_guests').notNullable();
     table.integer('bedrooms').notNullable();
     table.integer('bathrooms').notNullable();
-    table
-      .enum('property_type', ['hotel', 'apartment', 'villa', 'resort', 'guesthouse', 'hostel'])
-      .notNullable()
-      .defaultTo('hotel');
-    table.specificType('amenities', 'text[]').notNullable().defaultTo('{}');
+    table.string('property_type').notNullable().defaultTo('hotel')
+      .checkIn(['hotel', 'apartment', 'villa', 'resort', 'guesthouse', 'hostel']);
+    table.text('amenities').notNullable().defaultTo('[]'); // JSON array string
     table.string('image_url').nullable();
     table.boolean('is_active').notNullable().defaultTo(true);
     table.float('rating').nullable();

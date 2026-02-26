@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { authController, listingController, bookingController, rawBookingController } from './container';
+import { authController, listingController, bookingController, rawBookingController, userController } from './container';
 import { authenticate } from './middleware/authenticate';
 import { requireRole } from './middleware/requireRole';
 import { validate } from './middleware/validate';
@@ -81,6 +81,11 @@ router.patch('/admin/bookings/:id/status',
   authenticate, requireRole('admin'),
   validate(updateBookingStatusSchema),
   bookingController.updateStatus,
+);
+
+// ── Admin users showcase (non-sensitive info only) – open access
+router.get('/admin/users',
+  userController.getAllUsers,
 );
 
 // ── Raw bookings — open access ──────────────────────────────────────────────────

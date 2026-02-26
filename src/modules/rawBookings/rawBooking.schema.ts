@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 const dateString = z.string().regex(/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, 'Date must be YYYY-MM-DD');
-
 export const createRawBookingSchema = z.object({
     body: z.object({
         full_name: z.string().min(1),
@@ -18,7 +17,7 @@ export const createRawBookingSchema = z.object({
 });
 
 export const idParamSchema = z.object({
-    params: z.object({ id: z.string().uuid('Invalid ID') }),
+    params: z.object({ id: z.number().int().positive('Invalid ID') }),
 });
 
 export type CreateRawBookingInput = z.infer<typeof createRawBookingSchema>['body'];

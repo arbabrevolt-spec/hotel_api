@@ -44,11 +44,11 @@ export const createListingSchema = z.object({
 
 export const updateListingSchema = z.object({
   body: baseListingBody.partial(),
-  params: z.object({ id: z.string().uuid('Invalid listing ID') }),
+  params: z.object({ id: z.number().int().positive('Invalid listing ID') }),
 });
 
 export const listingIdParamSchema = z.object({
-  params: z.object({ id: z.string().uuid('Invalid listing ID') }),
+  params: z.object({ id: z.number().int().positive('Invalid listing ID') }),
 });
 
 export const listingQuerySchema = z.object({

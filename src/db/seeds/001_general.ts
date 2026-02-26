@@ -12,22 +12,22 @@ export async function seed(knex: Knex): Promise<void> {
     // create two users
     const password = 'password123';
     const adminPass = 'adminpass';
-    const [user1] = await knex('users')
+
+    const [user1Id] = await knex('users')
         .insert({
             username: 'user1',
             email: 'user1@example.com',
             password_hash: await bcrypt.hash(password, 10),
             role: 'user',
-        })
-        .returning('*');
-    const [admin] = await knex('users')
+        });
+
+    const [adminId] = await knex('users')
         .insert({
             username: 'admin',
             email: 'admin@example.com',
             password_hash: await bcrypt.hash(adminPass, 10),
             role: 'admin',
-        })
-        .returning('*');
+        });
 
     // create a few listings
     const listings = [];
@@ -44,19 +44,26 @@ export async function seed(knex: Knex): Promise<void> {
             bedrooms: faker.number.int({ min: 1, max: 5 }),
             bathrooms: faker.number.int({ min: 1, max: 3 }),
             property_type: faker.helpers.arrayElement(['hotel', 'apartment', 'villa', 'resort', 'guesthouse', 'hostel']),
-            amenities: ['wifi', 'air conditioning'],
+            amenities: JSON.stringify(['wifi', 'air conditioning']),
             image_url: null,
             is_active: true,
             rating: null,
             rating_count: 0,
         });
     }
-    const insertedListings = await knex('hotel_listings').insert(listings).returning('*');
+
+    // SQLite doesn't support .returning() — insert one by one to get IDs
+    const insertedListings = [];
+    for (const listing of listings) {
+        const [id] = await knex('hotel_listings').insert(listing);
+        const row = await knex('hotel_listings').where({ id }).first();
+        insertedListings.push(row);
+    }
 
     // create one booking for user1 on first listing
     const firstListing = insertedListings[0];
     await knex('bookings').insert({
-        user_id: user1.id,
+        user_id: user1Id,
         listing_id: firstListing.id,
         check_in: faker.date.soon({ days: 30 }).toISOString().split('T')[0],
         check_out: faker.date.soon({ days: 40 }).toISOString().split('T')[0],

@@ -5,7 +5,7 @@ const dateString = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Date must be YYYY-MM
 export const createBookingSchema = z.object({
   body: z
     .object({
-      listing_id: z.string().uuid('Invalid listing ID'),
+      listing_id: z.number().int().positive('Invalid listing ID'),
       check_in: dateString,
       check_out: dateString,
       guests: z.number().int().min(1, 'At least 1 guest required'),
@@ -18,14 +18,14 @@ export const createBookingSchema = z.object({
 });
 
 export const bookingIdParamSchema = z.object({
-  params: z.object({ id: z.string().uuid('Invalid booking ID') }),
+  params: z.object({ id: z.number().int().positive('Invalid booking ID') }),
 });
 
 export const updateBookingStatusSchema = z.object({
   body: z.object({
     status: z.enum(['pending', 'confirmed', 'cancelled']),
   }),
-  params: z.object({ id: z.string().uuid('Invalid booking ID') }),
+  params: z.object({ id: z.number().int().positive('Invalid booking ID') }),
 });
 
 export type CreateBookingInput = z.infer<typeof createBookingSchema>['body'];

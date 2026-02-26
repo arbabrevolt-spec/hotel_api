@@ -1,16 +1,16 @@
 // slider------------------------------------------------
 
 const images = [
-  "Gallery/s1.webp",
-  "Gallery/s2.webp",
-  "Gallery/s3.jpg",
-  "Gallery/s4.jpg",
-  "Gallery/s5.png",
-  "Gallery/s6.png",
-  "Gallery/s7.jpg",
-  "Gallery/s8.webp",
-  "Gallery/s9.jpg",
-  "Gallery/s10.jpg"
+  "assets/s1.webp",
+  "assets/s2.webp",
+  "assets/s3.jpg",
+  "assets/s4.jpg",
+  "assets/s5.png",
+  "assets/s6.png",
+  "assets/s7.jpg",
+  "assets/s8.webp",
+  "assets/s9.jpg",
+  "assets/s10.jpg",
 ];
 
 let index = 0;
@@ -24,6 +24,4 @@ setInterval(() => {
     slideImage.src = images[index];
     slideImage.style.opacity = 1;
   }, 500);
-
 }, 3000);
-

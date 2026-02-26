@@ -1,6 +1,6 @@
 const API_URL = "/api/raw-bookings";
+const USERS_API_URL = "/api/admin/users";
 const ROWS_PER_PAGE = 8;
-
 let bookings = [];
 let currentPage = 1;
 
@@ -8,9 +8,7 @@ async function fetchBookings() {
   try {
     const res = await fetch(API_URL);
     const json = await res.json();
-
     if (!json.success) throw new Error("API error");
-
     bookings = json.data;
     renderTable();
     renderPagination();
@@ -23,27 +21,21 @@ async function fetchBookings() {
 function renderTable() {
   const tableBody = document.getElementById("table-body");
   tableBody.innerHTML = "";
-
   const start = (currentPage - 1) * ROWS_PER_PAGE;
   const end = start + ROWS_PER_PAGE;
   const pageData = bookings.slice(start, end);
-
   pageData.forEach((b) => {
     const row = document.createElement("div");
     row.className = "table-row";
-
     row.innerHTML = `
       <div>${b.full_name}</div>
       <div>${b.email}</div>
       <div>${b.number_of_guests}</div>
       <div>${formatDate(b.check_in)}</div>
       <div>${formatDate(b.check_out)}</div>
-      <div><span class="badge ${b.payment_method}">
-        ${b.payment_method}
-      </span></div>
+      <div><span class="badge ${b.payment_method}">${b.payment_method}</span></div>
       <div>${formatDateTime(b.created_at)}</div>
     `;
-
     tableBody.appendChild(row);
   });
 }
@@ -51,9 +43,7 @@ function renderTable() {
 function renderPagination() {
   const pagination = document.getElementById("pagination");
   pagination.innerHTML = "";
-
   const totalPages = Math.ceil(bookings.length / ROWS_PER_PAGE);
-
   for (let i = 1; i <= totalPages; i++) {
     const btn = document.createElement("button");
     btn.innerText = i;
@@ -67,6 +57,34 @@ function renderPagination() {
   }
 }
 
+async function fetchUsers() {
+  try {
+    const res = await fetch(USERS_API_URL);
+    const json = await res.json();
+    if (!json.success) throw new Error("API error");
+    renderUsers(json.data);
+  } catch (err) {
+    document.getElementById("users-body").innerHTML =
+      `<div class="loading">Failed to load users</div>`;
+  }
+}
+
+function renderUsers(users) {
+  const usersBody = document.getElementById("users-body");
+  usersBody.innerHTML = "";
+  users.forEach((u) => {
+    const row = document.createElement("div");
+    row.className = "table-row";
+    row.innerHTML = `
+      <div>${u.id}</div>
+      <div>${u.username}</div>
+      <div><span class="badge ${u.role === "admin" ? "upi" : "net"}">${u.role}</span></div>
+      <div>${formatDateTime(u.created_at)}</div>
+    `;
+    usersBody.appendChild(row);
+  });
+}
+
 function formatDate(date) {
   return new Date(date).toLocaleDateString();
 }
@@ -76,3 +94,4 @@ function formatDateTime(date) {
 }
 
 fetchBookings();
+fetchUsers();

@@ -14,6 +14,8 @@
 import db from './db/knex';
 
 import { UserRepo } from './modules/user/user.repo';
+import { UserService } from './modules/user/user.service';
+import { UserController } from './modules/user/user.controller';
 import { AuthService } from './modules/auth/auth.service';
 import { AuthController } from './modules/auth/auth.controller';
 
@@ -40,9 +42,11 @@ const authService = new AuthService(userRepo);
 const listingService = new HotelListingService(listingRepo);
 const bookingService = new BookingService(bookingRepo, listingRepo);
 const rawBookingService = new RawBookingService(rawBookingRepo);
+const userService = new UserService(userRepo);
 
 // ── Controllers ──────────────────────────────────────────
 export const authController = new AuthController(authService);
 export const listingController = new HotelListingController(listingService);
 export const bookingController = new BookingController(bookingService);
 export const rawBookingController = new RawBookingController(rawBookingService);
+export const userController = new UserController(userService);

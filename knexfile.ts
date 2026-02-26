@@ -8,15 +8,11 @@ if (!envLoaded) throw new Error("Failed to Load env")
 
 const config: { [key: string]: Knex.Config } = {
   development: {
-    client: 'pg',
+    client: 'better-sqlite3',
     connection: {
-      host: process.env.DB_HOST,
-      port: Number(process.env.DB_PORT) || 5432,
-      database: process.env.DB_NAME,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-      ssl: process.env.DB_SSL === 'require' ? { rejectUnauthorized: false } : false,
+      filename: process.env.DB_PATH || './dev.sqlite3',
     },
+    useNullAsDefault: true,
     migrations: {
       directory: './src/db/migrations',
       extension: 'ts',
@@ -28,15 +24,11 @@ const config: { [key: string]: Knex.Config } = {
   },
 
   production: {
-    client: 'pg',
+    client: 'better-sqlite3',
     connection: {
-      host: process.env.DB_HOST || 'localhost',
-      port: Number(process.env.DB_PORT) || 5432,
-      database: process.env.DB_NAME || 'hotel_db',
-      user: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
-      ssl: process.env.DB_SSL === 'require' ? { rejectUnauthorized: false } : false,
+      filename: process.env.DB_PATH || './hotel_db.sqlite3',
     },
+    useNullAsDefault: true,
     migrations: {
       directory: './src/db/migrations',
       extension: 'ts',

@@ -113,3 +113,13 @@ h1 {
   text-align: center;
   color: var(--muted);
 }
+
+.users-table .table-header,
+.users-table .table-row {
+  grid-template-columns: 0.5fr 2fr 1fr 2fr;
+}
+
+.section-title {
+  font-size: 22px;
+  margin: 40px 0 16px;
+}
