@@ -1,0 +1,115 @@
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --card-hover: #243148;
+  --accent: #3b82f6;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  padding: 40px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 30px;
+}
+
+.dashboard {
+  background: var(--card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.table-header,
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr 1fr 1fr;
+  padding: 16px 20px;
+  align-items: center;
+}
+
+.table-header {
+  background: #162032;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.table-row {
+  border-top: 1px solid #1f2a3a;
+  transition: background 0.2s ease;
+}
+
+.table-row:hover {
+  background: var(--card-hover);
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.cash {
+  background: var(--success);
+}
+.upi {
+  background: var(--accent);
+}
+.net {
+  background: var(--warning);
+}
+.credit {
+  background: var(--danger);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.pagination button {
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination button:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.pagination button.active {
+  background: var(--accent);
+}
+
+.loading {
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+}
