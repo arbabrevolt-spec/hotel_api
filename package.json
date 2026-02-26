@@ -9,7 +9,7 @@
     "migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
     "migrate:make": "knex --knexfile knexfile.ts migrate:make",
     "seed": "knex --knexfile ./knexfile.ts seed:run",
-    "setup": "npm i && cpy .env.example .env && npm run migrate:latest && npm run seed && npm run dev"
+    "setup": "npm i && cpy .env.example .env && npm run migrate:latest && npm run seed && node -e \"console.clear(); console.log('\\n\\nSetup complete. use: npm run dev\\n\\n')\""
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
