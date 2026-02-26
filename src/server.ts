@@ -20,6 +20,7 @@ async function start() {
 
   app.listen(PORT, () => {
     logger.info(`Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
+    logger.info(`Frontend: localhost:3000`);
   });
 }
 

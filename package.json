@@ -8,7 +8,8 @@
     "migrate:latest": "knex --knexfile knexfile.ts migrate:latest",
     "migrate:rollback": "knex --knexfile knexfile.ts migrate:rollback",
     "migrate:make": "knex --knexfile knexfile.ts migrate:make",
-    "seed": "knex --knexfile ./knexfile.ts seed:run"
+    "seed": "knex --knexfile ./knexfile.ts seed:run",
+    "setup": "npm i && cpy .env.example .env && npm run migrate:latest && npm run seed && npm run dev"
   },
   "dependencies": {
     "@faker-js/faker": "^10.3.0",
@@ -20,7 +21,6 @@
     "knex": "^3.1.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "pg": "^8.11.3",
     "swagger-ui-express": "^5.0.1",
     "winston": "^3.11.0",
     "zod": "^3.22.4"
@@ -33,6 +33,7 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.10.0",
     "@types/swagger-ui-express": "^4.1.8",
+    "cpy-cli": "^7.0.0",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsx": "^4.21.0",
