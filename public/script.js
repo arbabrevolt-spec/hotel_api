@@ -1,78 +1,80 @@
-const API_URL = "/api/raw-bookings";
-const ROWS_PER_PAGE = 8;
+function switchRole(role) {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => tab.classList.remove("active"));
 
-let bookings = [];
-let currentPage = 1;
-
-async function fetchBookings() {
-  try {
-    const res = await fetch(API_URL);
-    const json = await res.json();
-
-    if (!json.success) throw new Error("API error");
-
-    bookings = json.data;
-    renderTable();
-    renderPagination();
-  } catch (err) {
-    document.getElementById("table-body").innerHTML =
-      `<div class="loading">Failed to load bookings</div>`;
+  if (role === "user") {
+    tabs[0].classList.add("active");
+  } else {
+    tabs[1].classList.add("active");
   }
 }
 
-function renderTable() {
-  const tableBody = document.getElementById("table-body");
-  tableBody.innerHTML = "";
 
-  const start = (currentPage - 1) * ROWS_PER_PAGE;
-  const end = start + ROWS_PER_PAGE;
-  const pageData = bookings.slice(start, end);
 
-  pageData.forEach((b) => {
-    const row = document.createElement("div");
-    row.className = "table-row";
 
-    row.innerHTML = `
-      <div>${b.full_name}</div>
-      <div>${b.email}</div>
-      <div>${b.number_of_guests}</div>
-      <div>${formatDate(b.check_in)}</div>
-      <div>${formatDate(b.check_out)}</div>
-      <div><span class="badge ${b.payment_method}">
-        ${b.payment_method}
-      </span></div>
-      <div>${formatDateTime(b.created_at)}</div>
-    `;
 
-    tableBody.appendChild(row);
+let currentRole = "User"; // default role
+
+function switchRole(role) {
+  const tabs = document.querySelectorAll(".tab");
+  tabs.forEach(tab => tab.classList.remove("active"));
+
+  if (role === "user") {
+    tabs[0].classList.add("active");
+    currentRole = "User";
+  } else {
+    tabs[1].classList.add("active");
+    currentRole = "Staff";
+  }
+}
+
+/* LOGIN DATA */
+const loginForm = document.getElementById("loginForm");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const data = {
+      page: "Login",
+      role: currentRole,
+      username: document.getElementById("username").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value
+    };
+
+    console.log("=== LOGIN DATA ===");
+    console.log(data);
+
+    window.location.href = "home.html";
+
   });
 }
 
-function renderPagination() {
-  const pagination = document.getElementById("pagination");
-  pagination.innerHTML = "";
+/* SIGNUP DATA */
+const signupForm = document.getElementById("signupForm");
 
-  const totalPages = Math.ceil(bookings.length / ROWS_PER_PAGE);
+if (signupForm) {
+  signupForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-  for (let i = 1; i <= totalPages; i++) {
-    const btn = document.createElement("button");
-    btn.innerText = i;
-    btn.classList.toggle("active", i === currentPage);
-    btn.onclick = () => {
-      currentPage = i;
-      renderTable();
-      renderPagination();
+    const data = {
+      page: "Sign Up",
+      role: currentRole,
+      username: document.getElementById("username").value,
+      email: document.getElementById("email").value,
+      password: document.getElementById("password").value,
+      confirmPassword: document.getElementById("confirmPassword").value
     };
-    pagination.appendChild(btn);
-  }
+
+    console.log("=== SIGNUP DATA ===");
+    console.log(data);
+
+
+    window.location.href = "home.html";
+
+  });
 }
 
-function formatDate(date) {
-  return new Date(date).toLocaleDateString();
-}
 
-function formatDateTime(date) {
-  return new Date(date).toLocaleString();
-}
 
-fetchBookings();

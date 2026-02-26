@@ -2,34 +2,53 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bookings Dashboard</title>
-
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <title>RoyalHotel | Login</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="wrapper">
 
-    <h1>Raw Bookings Dashboard</h1>
-
-    <div class="dashboard">
-        <div class="table-header">
-            <div>Name</div>
-            <div>Email</div>
-            <div>Guests</div>
-            <div>Check-in</div>
-            <div>Check-out</div>
-            <div>Payment</div>
-            <div>Created</div>
+        <!-- LEFT IMAGE -->
+        <div class="left">
+            <img src="Gallery/login-img.png" >
         </div>
 
-        <div id="table-body">
-            <div class="loading">Loading...</div>
+        <!-- RIGHT FORM -->
+        <div class="right">
+            <div class="form-box">
+
+                <div class="logo">
+                    <img src="" alt="">
+                    <span>RoyalHotel</span>
+                </div>
+
+                <h2>Log In</h2>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchRole('user')">User</button>
+                    <button class="tab" onclick="switchRole('staff')">Staff</button>
+                </div>
+
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+
+                    <button class="btn" type="submit">Log in</button>
+                </form>
+
+
+                <p class="link">
+                    Don't have an account?
+                    <a href="sign up.html">sign up</a>
+                </p>
+
+            </div>
         </div>
+
     </div>
-
-    <div class="pagination" id="pagination"></div>
 
     <script src="script.js"></script>
 </body>

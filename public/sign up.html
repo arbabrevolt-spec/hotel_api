@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RoyalHotel | Sign Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="wrapper">
+
+        <div class="left">
+            <img src="hotel.jpg" alt="Royal Hotel">
+        </div>
+
+        <div class="right">
+            <div class="form-box">
+
+                <div class="logo">
+                    <img src="https://i.imgur.com/9QZ7ZQF.png" alt="">
+                    <span>RoyalHotel</span>
+                </div>
+
+                <h2>Sign Up</h2>
+
+                <div class="tabs">
+                    <button class="tab active" onclick="switchRole('user')">User</button>
+                    <button class="tab" onclick="switchRole('staff')">Staff</button>
+                </div>
+
+                <form id="signupForm">
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+
+                    <button class="btn" type="submit">Sign up</button>
+                </form>
+
+
+                <p class="link">
+                    Already have an account?
+                    <a href="index.html">log in</a>
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
